@@ -30,6 +30,8 @@ async function run() {
 
     const jobsCollection = client.db("proOpportunity").collection("jobs");
 
+    const resumeCollection = client.db("proOpportunity").collection("appliedResumes")
+
 
     // Get all data from database
 
@@ -48,6 +50,23 @@ async function run() {
         const result = await jobsCollection.findOne(query)
         res.send(result)
     })
+
+    //save applied resume data in database
+    app.post('/appliedResumes', async(req, res)=> {
+        const applyData = req.body
+        const result = await resumeCollection.insertOne(applyData)
+        res.send(result)
+    })
+
+     //save job data in database
+     app.post('/job', async(req, res)=> {
+        const jobData = req.body
+        const result = await jobsCollection.insertOne(jobData)
+        res.send(result)
+    })
+
+
+    
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
