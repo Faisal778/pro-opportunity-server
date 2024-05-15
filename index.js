@@ -74,12 +74,20 @@ async function run() {
         res.send(result);
       });
 
+      //applied jobs
+    app.get('/appliedjobs/:email', async (req, res) => {
+        const email = req.params.email;
+        const query = { email: email };
+        const result = await resumeCollection.find(query).toArray();
+        res.send(result);
+      });
+
 
       //delete a job data from database
       app.delete('/job/:id', async (req, res) => {
         const id = req.params.id;
         const query = {_id: new ObjectId(id)};
-        const result = await jobsCollection.deleteOne(query).toArray();
+        const result = await jobsCollection.deleteOne(query);
         res.send(result);
       });
       
