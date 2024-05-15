@@ -65,6 +65,16 @@ async function run() {
         res.send(result)
     })
 
+    // get jobs according to specific user
+
+    app.get('/jobs/:email', async (req, res) => {
+        const email = req.params.email;
+        const query = { email: email };
+        const result = await jobsCollection.find(query).toArray();
+        res.send(result);
+      });
+      
+
 
     
     // Send a ping to confirm a successful connection
